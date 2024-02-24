@@ -1,0 +1,43 @@
+import random
+
+class Player:
+    def __init__(self, name, health=100, weapon=None):
+        self.name = name
+        self.health = health
+        self.weapon = weapon
+
+    def attack(self, other):
+        damage = random.randint(1, 20)
+        other.take_damage(damage)
+
+    def take_damage(self, damage):
+        self.health -= damage
+        if self.health <= 0:
+            print(f"{self.name} has been eliminated!")
+
+class Weapon:
+    def __init__(self, name, damage):
+        self.name = name
+        self.damage = damage
+
+def main():
+    player1 = Player("Player 1", weapon=Weapon("Shotgun", 15))
+    player2 = Player("Player 2", weapon=Weapon("Assault Rifle", 10))
+
+    print("Battle Royale Begins!")
+
+    while player1.health > 0 and player2.health > 0:
+        print(f"{player1.name} attacks {player2.name}!")
+        player1.attack(player2)
+
+        print(f"{player2.name} attacks {player1.name}!")
+        player2.attack(player1)
+
+        print(f"{player1.name} - Health: {player1.health}")
+        print(f"{player2.name} - Health: {player2.health}")
+        print("\n")
+
+    print("Game Over!")
+
+if __name__ == "__main__":
+    main()
